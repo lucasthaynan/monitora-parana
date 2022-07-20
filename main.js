@@ -1,3 +1,10 @@
+
+
+// url para pegar o embed: https://publish.twitter.com/oembed?url=https://twitter.com/crosroberto/status/1548391682135113728
+
+// Mais detalhes sobre o embed: https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-oembed
+
+
 // como instalar o node e npm e importar dependências/bibliotecas: 
 // https://www.youtube.com/watch?v=7iSylg2UvU0
 const options = {
