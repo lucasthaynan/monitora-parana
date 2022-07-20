@@ -13,6 +13,7 @@
     --azul-escuro: #02365F;
     --preto: #000000;
     --cinza-medio: #B6B6B6;
+    --cinza-suave: #E3E3E3;
     --branco: #FFFFFF;
 }
 
@@ -54,8 +55,8 @@ section.grafico {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
+
+    margin: 70px auto;
 }
 
 section.grafico .botoes {
@@ -68,7 +69,91 @@ section.grafico .botoes {
 section.grafico .botoes > span {
     background-color: var(--cinza-medio);
     color: var(--branco);
-    padding: 4px 10px;
+    padding: 4px 15px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
+section.grafico .botoes span.ativo {
+    background-color: var(--azul);
+}
+
+
+section.lista-tweets {    
+    background-color: var(--cinza-suave);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+}
+
+section.lista-tweets .titulo-tweets {
+    background-color: var(--azul-escuro);
+    padding: 20px 40px;
+    border-radius: 15px;
+    position: relative;
+    top: -50px;
+}
+
+section.lista-tweets .titulo-tweets > p {
+    font-size: 1rem;
+    color: var(--branco);
+    
+}
+
+div.containers {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+div.containers div.tweets-termo {
+    margin-top: 15px;
+    height: 500px;
+    width: 290px;
+    background-color: var(--azul);
+    overflow-y: auto;
+    padding: 15px 10px;
+}
+
+div.containers .cont > p {
+    text-align: center;
+    font-weight: bold;
+}
+
+blockquote {
+    width: 180px;
+}
+
+section.noticias {
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+section.noticias > h2 {
+    font-size: 2rem;
+}
+
+
+section.noticias .lista-noticias {
+    margin: 50px 0; 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 270px;
+    gap: 40px;
+}
+
+section.noticias .lista-noticias img {
+    width: 270px;
+    margin-bottom: 10px;
+}
+
+section.noticias .lista-noticias h2 {
+    font-size: 1.2rem;
+}

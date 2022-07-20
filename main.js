@@ -15,25 +15,22 @@ const options = {
 
   // chart
 
-  const red = "rgb(255, 99, 132)";
+  const blue = "#095A99";
   const color = Chart.helpers.color;
   const config = {
     type: 'radar',
     data: {
-      labels: [['Eating', 'Dinner'], ['Drinking', 'Water'], 'Sleeping', ['Designing', 'Graphics'], 'Coding', 'Cycling', 'Running'],
+      labels: [['Eating', 'Dinner'], 'Drinking', 'Water', 'Running'],
       datasets: [{
         label: 'My dataset',
-        backgroundColor: color(red).alpha(0.2).rgbString(),
-        borderColor: red,
-        pointBackgroundColor: red,
+        backgroundColor: color(blue).alpha(0.2).rgbString(),
+        borderColor: blue,
+        pointBackgroundColor: blue,
         data: [
           80,
           90,
           60,
-          65,
-          78,
-          97,
-          55
+          65      
         ]
       }]
     },
