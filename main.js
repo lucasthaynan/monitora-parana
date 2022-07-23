@@ -7,38 +7,95 @@
 
 // como instalar o node e npm e importar dependências/bibliotecas: 
 // https://www.youtube.com/watch?v=7iSylg2UvU0
-const options = {
-    method: 'GET',
-    headers: {
-      'xc-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2FzdGhheW5hbi5tY3pAZ21haWwuY29tIiwiZmlyc3RuYW1lIjpudWxsLCJsYXN0bmFtZSI6bnVsbCwiaWQiOiJ1c19wM2Voc2JibGJ5NDN6cyIsInJvbGVzIjoidXNlcixzdXBlciIsInRva2VuX3ZlcnNpb24iOiI0ZjAyODU1YTVmZTE2YWIwM2YwNTY1YTlhNjMzMTA3NTIyNzEyZTZhZTJiN2Q4NmU1ODUxOGE1NjU5OTg5NDY0NzQwMTcyZDE3NTNlYWQzOSIsImlhdCI6MTY1Nzc2MTc4MywiZXhwIjoxNjU3Nzk3NzgzfQ.w5gIgKDNk4-N5YrUuOTnlLrESTjyMfAM8InY7e1jB9w'
-    }
-  };
-  
-  fetch('http://banco-de-dados-nocodb.herokuapp.com/api/v1/db/data/noco/p_9g3vr0y0yu9h2k/PGina1/views/PGina1?limit=25&offset=0&where=', options)
-    .then(response => response.json())
-    .then(response => console.log(response))
-    .catch(err => console.error(err));
 
+geraGrafico([0,0,0,0])
+
+let termoBolsonaro = 0
+let termoFraudeNasUrnas = 0
+let termoLula = 0
+let termoStfCorrupto = 0
+
+const options = {
+  method: 'GET',
+    headers: {
+    'xc-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vbml0b3JmYWtlcGFyYW5hQGdtYWlsLmNvbSIsImZpcnN0bmFtZSI6bnVsbCwibGFzdG5hbWUiOm51bGwsImlkIjoidXNfbWN6cXE2N2tybTl6OWMiLCJyb2xlcyI6InVzZXIsc3VwZXIiLCJ0b2tlbl92ZXJzaW9uIjoiNGE5YWVhMTgyNTdkYTg3MGU1MDZjMzQyZjFjMjA5NTExZmE1NWMwMThlZGM4YzMxOWU5ZjQxYTA0MDM2ZjQ5ZDgwY2VjNjU0OTJjYWE0OTAiLCJpYXQiOjE2NTg1ODExMDIsImV4cCI6MTY1ODYxNzEwMn0.vukr5Ac20Dif143W38IcvSGXlZSHqM5L3QJJbcobDrA'
+  }
+};
+async function pegaDados() {
+
+  await fetch('http://monitor-fake.herokuapp.com/api/v1/db/data/noco/p_1t49u071lp0ie2/TweetsValidosFinais/views/TweetsValidosFinais?limit=100&offset=10&where=', options)
+  .then(response => response.json())
+  .then(data => {
+
+    data['list'].forEach(element => {
+      
+      element['TermoBolsonaro'] = parseInt(element['TermoBolsonaro'])
+      element['TermoLula'] = parseInt(element['TermoLula'])
+      element['TermoFraudeNasUrnas'] = parseInt(element['TermoFraudeNasUrnas'])
+      element['TermoStfCorrupto'] = parseInt(element['TermoStfCorrupto'])
+
+      if (element['TermoBolsonaro'] == 1) {
+        termoBolsonaro += 1
+      }
+
+      if (element['TermoLula'] == 1) {
+        termoLula += 1
+      }
+
+      if (element['TermoFraudeNasUrnas'] == 1) {
+        termoFraudeNasUrnas += 1
+      }
+
+      if (element['TermoStfCorrupto'] == 1) {
+        termoStfCorrupto += 1
+      }
+
+
+    });
+
+
+  })
+
+  // atribuindo valores fakes para algumas variaveis como teste
+
+  termoFraudeNasUrnas = 8
+  termoStfCorrupto = 15
+
+  let listaDados = [termoBolsonaro, termoLula, termoFraudeNasUrnas, termoStfCorrupto]
+
+  geraGrafico(listaDados)
+
+  // console.log('termoBolsonaro: ' + termoBolsonaro)
+  // console.log('termoLula: ' + termoLula)
+  // console.log('termoFraudeNasUrnas: ' + termoFraudeNasUrnas)
+  // console.log('termoStfCorrupto: ' + termoStfCorrupto)
+}
+
+pegaDados()
+ 
+
+
+
+
+
+console.log(typeof termoStfCorrupto)
 
   // chart
 
+function geraGrafico(listaDados) {
+  
   const blue = "#095A99";
   const color = Chart.helpers.color;
   const config = {
     type: 'radar',
     data: {
-      labels: [['Eating', 'Dinner'], 'Drinking', 'Water', 'Running'],
+      labels: ['Bolsonaro','Lula', ['Fraude', 'nas urnas'], ['STF', 'corrupto']],
       datasets: [{
-        label: 'My dataset',
+        label: 'Citações do termo',
         backgroundColor: color(blue).alpha(0.2).rgbString(),
         borderColor: blue,
         pointBackgroundColor: blue,
-        data: [
-          80,
-          90,
-          60,
-          65      
-        ]
+        data: listaDados
       }]
     },
     options: {
@@ -56,3 +113,5 @@ const options = {
   window.onload = function () {
     window.myRadar = new Chart(document.getElementById('chart'), config);
   };
+
+}
