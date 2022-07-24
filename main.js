@@ -15,6 +15,8 @@ let termoFraudeNasUrnas = 0
 let termoLula = 0
 let termoStfCorrupto = 0
 
+let tweetEmbed = ''
+
 const options = {
   method: 'GET',
     headers: {
@@ -26,6 +28,8 @@ async function pegaDados() {
   await fetch('http://monitor-fake.herokuapp.com/api/v1/db/data/noco/p_1t49u071lp0ie2/TweetsValidosFinais/views/TweetsValidosFinais?limit=100&offset=10&where=', options)
   .then(response => response.json())
   .then(data => {
+
+    tweetEmbed = data['list'][0]['Embed']
 
     data['list'].forEach(element => {
       
@@ -55,6 +59,9 @@ async function pegaDados() {
 
 
   })
+  .catch((error) => {
+    console.log(error)
+  });
 
   // atribuindo valores fakes para algumas variaveis como teste
 
@@ -65,6 +72,24 @@ async function pegaDados() {
 
   geraGrafico(listaDados)
 
+  // function (tweetEmbed) {
+  //   var parser = new DOMParser();
+  //   var doc = parser.parseFromString(tweetEmbed, 'text/html');
+  //   return doc.body;
+  // };
+
+  let parser = new DOMParser();
+  let doc = parser.parseFromString(tweetEmbed, "application/xml");
+  // console.log(doc)
+  blockquote = doc.querySelector('blockquote')
+  script = doc.querySelector('script')
+
+  inserirEmbed(blockquote, script)
+
+  // inserirEmbed()
+
+  
+
   // console.log('termoBolsonaro: ' + termoBolsonaro)
   // console.log('termoLula: ' + termoLula)
   // console.log('termoFraudeNasUrnas: ' + termoFraudeNasUrnas)
@@ -72,10 +97,15 @@ async function pegaDados() {
 }
 
 pegaDados()
- 
 
 
 
+function inserirEmbed(blockquote, script) {
+  // var p = document.createElement("p")
+  document.querySelector('#termo1').appendChild(blockquote)
+  document.querySelector('#termo1').appendChild(script)
+  // termo1.appendChild(p)
+}
 
 
 console.log(typeof termoStfCorrupto)
