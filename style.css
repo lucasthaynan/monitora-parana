@@ -167,7 +167,7 @@ section.noticias .lista-noticias {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 270px;
     gap: 40px;
 }

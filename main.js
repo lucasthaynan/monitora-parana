@@ -20,8 +20,8 @@ let tweetEmbed = ''
 const options = {
   method: 'GET',
     headers: {
-    'xc-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vbml0b3JmYWtlcGFyYW5hQGdtYWlsLmNvbSIsImZpcnN0bmFtZSI6bnVsbCwibGFzdG5hbWUiOm51bGwsImlkIjoidXNfbWN6cXE2N2tybTl6OWMiLCJyb2xlcyI6InVzZXIsc3VwZXIiLCJ0b2tlbl92ZXJzaW9uIjoiNGE5YWVhMTgyNTdkYTg3MGU1MDZjMzQyZjFjMjA5NTExZmE1NWMwMThlZGM4YzMxOWU5ZjQxYTA0MDM2ZjQ5ZDgwY2VjNjU0OTJjYWE0OTAiLCJpYXQiOjE2NTg1ODExMDIsImV4cCI6MTY1ODYxNzEwMn0.vukr5Ac20Dif143W38IcvSGXlZSHqM5L3QJJbcobDrA'
-  }
+      'xc-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vbml0b3JmYWtlcGFyYW5hQGdtYWlsLmNvbSIsImZpcnN0bmFtZSI6bnVsbCwibGFzdG5hbWUiOm51bGwsImlkIjoidXNfbWN6cXE2N2tybTl6OWMiLCJyb2xlcyI6InVzZXIsc3VwZXIiLCJ0b2tlbl92ZXJzaW9uIjoiNGE5YWVhMTgyNTdkYTg3MGU1MDZjMzQyZjFjMjA5NTExZmE1NWMwMThlZGM4YzMxOWU5ZjQxYTA0MDM2ZjQ5ZDgwY2VjNjU0OTJjYWE0OTAiLCJpYXQiOjE2NTg3NTc0MTEsImV4cCI6MTY1ODc5MzQxMX0.sPc1DGtW3ZOjwZI-Or85oRJr3fdGpk5737QOeljWdGA'
+    }
 };
 async function pegaDados() {
 
@@ -30,6 +30,7 @@ async function pegaDados() {
   .then(data => {
 
     tweetEmbed = data['list'][0]['Embed']
+    tweetEmbed2 = data['list'][1]['Embed']
 
     data['list'].forEach(element => {
       
@@ -78,13 +79,13 @@ async function pegaDados() {
   //   return doc.body;
   // };
 
-  let parser = new DOMParser();
-  let doc = parser.parseFromString(tweetEmbed, "application/xml");
-  // console.log(doc)
-  blockquote = doc.querySelector('blockquote')
-  script = doc.querySelector('script')
+  console.log(tweetEmbed);
 
-  inserirEmbed(blockquote, script)
+  
+  // script = doc.querySelector('script')
+
+  inserirEmbed(tweetEmbed)
+  inserirEmbed(tweetEmbed2)
 
   // inserirEmbed()
 
@@ -100,11 +101,16 @@ pegaDados()
 
 
 
-function inserirEmbed(blockquote, script) {
-  // var p = document.createElement("p")
+function inserirEmbed(tweetEmbed) {
+
+  let parser = new DOMParser();
+  let doc = parser.parseFromString(tweetEmbed, "text/html");
+  console.log(doc)
+  
+  blockquote = doc.querySelector('blockquote')
+
   document.querySelector('#termo1').appendChild(blockquote)
-  document.querySelector('#termo1').appendChild(script)
-  // termo1.appendChild(p)
+
 }
 
 
@@ -145,3 +151,89 @@ function geraGrafico(listaDados) {
   };
 
 }
+
+
+
+// REQUISAO POSTS AGENCIA TATURES
+
+
+
+
+
+function carregarMaterias(numeroContainerNews) {
+  fetch('https://ancoradosfatos.com.br/wp-json/wp/v2/posts')
+    .then(response => response.json() )
+    .then(data => {
+
+      console.log(data)
+      let tituloMateria = data[numeroContainerNews].title.rendered;
+      console.log(tituloMateria)
+      let urlMateria = data[numeroContainerNews].link; 
+      console.log(urlMateria)
+      let apiFotosMateria = data[numeroContainerNews]._links['wp:featuredmedia'][0]['href'];
+      console.log(apiFotosMateria)
+      // console.log(tituloMateria);
+      // console.log(urlMateria);
+
+      // pegaUrlImgPost(apiFotosMateria, numeroContainerNews) 
+      
+      
+      fetch(apiFotosMateria)
+        .then(response => response.json() )
+        .then(data => {
+          // console.log(data)
+          let urlFotoMateria = data.source_url;
+          console.log(urlFotoMateria);  
+
+          
+          document.querySelectorAll('.lista-noticias img')[numeroContainerNews].src = urlFotoMateria;
+          // console.log()
+          document.querySelectorAll('.lista-noticias a')[numeroContainerNews].href = urlMateria;
+          document.querySelectorAll('.lista-noticias h2')[numeroContainerNews].innerHTML = tituloMateria;
+
+        })
+        .catch((error) => {
+          console.log(error)
+      });
+
+      
+          
+        
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+}
+
+let listaMaterias = [0,1,2,3];
+console.log(listaMaterias);
+
+for (let materia in listaMaterias) {
+  carregarMaterias(materia)
+}
+
+// function pegaUrlImgPost(apiFotosMateria, numeroContainerNews) {
+//   fetch(apiFotosMateria)
+//     .then(response => response.json() )
+//     .then(data => {
+//       // console.log(data)
+//       let urlFotoMateria = data.source_url;
+//       console.log(urlFotoMateria);  
+
+      
+      
+
+//     })
+//     .catch((error) => {
+//       console.log(error)
+//     });
+// }
+
+// function atualizarMateriaPagina(urlFotoMateria, tituloMateria){
+//   // ADICIONANDO URL DA MATERIA E FOTOS NA PAGINA        
+
+//   document.querySelectorAll('.lista-noticias img')[numeroContainerNews].src = urlFotoMateria;
+//   console.log()
+//   // document.querySelectorAll('section.noticias .news > a')[numeroContainerNews].href = urlMateria;
+//   document.querySelectorAll('.lista-noticias h2')[numeroContainerNews].innerHTML = tituloMateria;
+// }
