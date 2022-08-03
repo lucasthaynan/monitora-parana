@@ -207,6 +207,12 @@ let embedsTweets = {}
 
 // ---------------------------------
 
+let contagemTermo1 = 1
+let contagemTermo2 = 1
+let contagemTermo3 = 1
+let contagemTermo4 = 1
+
+
 // convertendo arquivo csv em arrays
 var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTMxyrSHWBwhKF9YfpIZFFzYs_5h3FT873w4PVz6dz9bN08u9fpJpnuXNC_s9657b_ZOUsa6Xb4OfTY/pub?gid=0&single=true&output=csv";
 
@@ -228,34 +234,38 @@ response.then(resultado => {
     idTweet += 1
     let data = element[5].split(' ')
 
-    if (element[12] == 1) {
+    if (element[12] == 1 && contagemTermo1 <=4) {
       embedsTweets[idTweetAtual] = {
         'id': idTweetAtual, 
         'termo1': 'sim',
         'termo1-embed': element[16]
       }
+      contagemTermo1 += 1
     }
 
-    if (element[13] == 1) {
+    if (element[13] == 1 && contagemTermo2 <=4) {
       embedsTweets[idTweetAtual] = {
         'id': idTweetAtual, 
         'termo2': 'sim',
         'termo2-embed': element[16]
       }
+      contagemTermo2 += 1
     }
-    if (element[14] == 1) {
+    if (element[14] == 1 && contagemTermo3 <=4) {
       embedsTweets[idTweetAtual] = {
         'id': idTweetAtual, 
         'termo3': 'sim',
         'termo3-embed': element[16]
       }
+      contagemTermo3 += 1
     }
-    if (element[15] == 1) {
+    if (element[15] == 1 && contagemTermo4 <=4) {
       embedsTweets[idTweetAtual] = {
         'id': idTweetAtual, 
         'termo4': 'sim',
         'termo4-embed': element[16]
       }
+      contagemTermo4 += 1
     }
 
 
