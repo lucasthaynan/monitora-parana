@@ -185,7 +185,7 @@ section.noticias .lista-noticias img {
 section.noticias .lista-noticias h2 {
     font-size: 1.2rem;
 }
-
+/* 
 
 blockquote.twitter-tweet {
     display: inline-block;
@@ -219,4 +219,4 @@ outline: 0 none;
 blockquote.twitter-tweet a:hover,
 blockquote.twitter-tweet a:focus {
 text-decoration: underline;
-}
+} */
