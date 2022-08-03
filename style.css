@@ -82,6 +82,10 @@ section.grafico .botoes span.ativo {
     background-color: var(--azul);
 }
 
+.chart-mes {
+    display: none important!;
+}
+
 
 section.lista-tweets {    
     background-color: var(--cinza-suave);

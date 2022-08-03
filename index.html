@@ -25,15 +25,20 @@
 
         <section class="grafico">
             <div class="botoes">
-                <span class="hoje ativo">Hoje</span>
-                <span class="7-dias">Últimos 7 dias</span>
-                <span class="30-dias">Últimos 30 dias</span>
+                <!-- <span class="hoje ativo">Hoje</span> -->
+                <span id="ultima-semana" class="7-dias ativo">Últimos 7 dias</span>
+                <span id="ultimo-mes" class="30-dias">Últimos 30 dias</span>
             </div>
             <div class="radar-chart">
-                <canvas id="chart-semana" width="400" height="220"></canvas>
-                <canvas id="chart-mes" width="400" height="220"></canvas>
+                <canvas id="chart" class="grafico-js" width="400" height="220"></canvas>
+
                 <!-- <img src="./imagens/grafico_exemplo.png" alt=""> -->
             </div>
+            <!-- <div class="radar-chart">
+
+                <canvas id="chart-mes" class="grafico-js" width="400" height="220"></canvas>
+                
+            </div> -->
         </section>
 
         <section class="lista-tweets">
@@ -52,25 +57,25 @@
                 <div class="cont termo2">
                     <p>STF corrupto</p>
                     <div class="tweets-termo">
-                        <blockquote class="twitter-tweet"><p lang="pt" dir="ltr">🔙📊ELA VOLTOU: Pesquisa XP/Ipespe, que foi cancelada, em junho, após boicote de bolsonaristas, foi a campo no dia de hoje e tem previsão de divulgação para a próxima segunda-feira, 25/07. <a href="https://t.co/QwemPdFMmI">pic.twitter.com/QwemPdFMmI</a></p>&mdash; Central Eleitoral (@CentralEleicoes) <a href="https://twitter.com/CentralEleicoes/status/1549754820357234689?ref_src=twsrc%5Etfw">July 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        <!-- <blockquote class="twitter-tweet"><p lang="pt" dir="ltr">🔙📊ELA VOLTOU: Pesquisa XP/Ipespe, que foi cancelada, em junho, após boicote de bolsonaristas, foi a campo no dia de hoje e tem previsão de divulgação para a próxima segunda-feira, 25/07. <a href="https://t.co/QwemPdFMmI">pic.twitter.com/QwemPdFMmI</a></p>&mdash; Central Eleitoral (@CentralEleicoes) <a href="https://twitter.com/CentralEleicoes/status/1549754820357234689?ref_src=twsrc%5Etfw">July 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-                        <blockquote class="twitter-tweet"><p lang="pt" dir="ltr">🔙📊ELA VOLTOU: Pesquisa XP/Ipespe, que foi cancelada, em junho, após boicote de bolsonaristas, foi a campo no dia de hoje e tem previsão de divulgação para a próxima segunda-feira, 25/07. <a href="https://t.co/QwemPdFMmI">pic.twitter.com/QwemPdFMmI</a></p>&mdash; Central Eleitoral (@CentralEleicoes) <a href="https://twitter.com/CentralEleicoes/status/1549754820357234689?ref_src=twsrc%5Etfw">July 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        <blockquote class="twitter-tweet"><p lang="pt" dir="ltr">🔙📊ELA VOLTOU: Pesquisa XP/Ipespe, que foi cancelada, em junho, após boicote de bolsonaristas, foi a campo no dia de hoje e tem previsão de divulgação para a próxima segunda-feira, 25/07. <a href="https://t.co/QwemPdFMmI">pic.twitter.com/QwemPdFMmI</a></p>&mdash; Central Eleitoral (@CentralEleicoes) <a href="https://twitter.com/CentralEleicoes/status/1549754820357234689?ref_src=twsrc%5Etfw">July 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
                     </div>
                 </div>
                 <div class="cont termo3">
                     <p>STF corrupto</p>
                     <div class="tweets-termo">
-                        <blockquote class="twitter-tweet"><p lang="pt" dir="ltr">🔙📊ELA VOLTOU: Pesquisa XP/Ipespe, que foi cancelada, em junho, após boicote de bolsonaristas, foi a campo no dia de hoje e tem previsão de divulgação para a próxima segunda-feira, 25/07. <a href="https://t.co/QwemPdFMmI">pic.twitter.com/QwemPdFMmI</a></p>&mdash; Central Eleitoral (@CentralEleicoes) <a href="https://twitter.com/CentralEleicoes/status/1549754820357234689?ref_src=twsrc%5Etfw">July 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        <!-- <blockquote class="twitter-tweet"><p lang="pt" dir="ltr">🔙📊ELA VOLTOU: Pesquisa XP/Ipespe, que foi cancelada, em junho, após boicote de bolsonaristas, foi a campo no dia de hoje e tem previsão de divulgação para a próxima segunda-feira, 25/07. <a href="https://t.co/QwemPdFMmI">pic.twitter.com/QwemPdFMmI</a></p>&mdash; Central Eleitoral (@CentralEleicoes) <a href="https://twitter.com/CentralEleicoes/status/1549754820357234689?ref_src=twsrc%5Etfw">July 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-                        <blockquote class="twitter-tweet"><p lang="pt" dir="ltr">🔙📊ELA VOLTOU: Pesquisa XP/Ipespe, que foi cancelada, em junho, após boicote de bolsonaristas, foi a campo no dia de hoje e tem previsão de divulgação para a próxima segunda-feira, 25/07. <a href="https://t.co/QwemPdFMmI">pic.twitter.com/QwemPdFMmI</a></p>&mdash; Central Eleitoral (@CentralEleicoes) <a href="https://twitter.com/CentralEleicoes/status/1549754820357234689?ref_src=twsrc%5Etfw">July 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        <blockquote class="twitter-tweet"><p lang="pt" dir="ltr">🔙📊ELA VOLTOU: Pesquisa XP/Ipespe, que foi cancelada, em junho, após boicote de bolsonaristas, foi a campo no dia de hoje e tem previsão de divulgação para a próxima segunda-feira, 25/07. <a href="https://t.co/QwemPdFMmI">pic.twitter.com/QwemPdFMmI</a></p>&mdash; Central Eleitoral (@CentralEleicoes) <a href="https://twitter.com/CentralEleicoes/status/1549754820357234689?ref_src=twsrc%5Etfw">July 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
                     </div>
                 </div>
                 <div class="cont termo4">
                     <p>STF corrupto</p>
                     <div class="tweets-termo">
-                        <blockquote class="twitter-tweet"><p lang="pt" dir="ltr">🔙📊ELA VOLTOU: Pesquisa XP/Ipespe, que foi cancelada, em junho, após boicote de bolsonaristas, foi a campo no dia de hoje e tem previsão de divulgação para a próxima segunda-feira, 25/07. <a href="https://t.co/QwemPdFMmI">pic.twitter.com/QwemPdFMmI</a></p>&mdash; Central Eleitoral (@CentralEleicoes) <a href="https://twitter.com/CentralEleicoes/status/1549754820357234689?ref_src=twsrc%5Etfw">July 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        <!-- <blockquote class="twitter-tweet"><p lang="pt" dir="ltr">🔙📊ELA VOLTOU: Pesquisa XP/Ipespe, que foi cancelada, em junho, após boicote de bolsonaristas, foi a campo no dia de hoje e tem previsão de divulgação para a próxima segunda-feira, 25/07. <a href="https://t.co/QwemPdFMmI">pic.twitter.com/QwemPdFMmI</a></p>&mdash; Central Eleitoral (@CentralEleicoes) <a href="https://twitter.com/CentralEleicoes/status/1549754820357234689?ref_src=twsrc%5Etfw">July 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-                        <blockquote class="twitter-tweet"><p lang="pt" dir="ltr">🔙📊ELA VOLTOU: Pesquisa XP/Ipespe, que foi cancelada, em junho, após boicote de bolsonaristas, foi a campo no dia de hoje e tem previsão de divulgação para a próxima segunda-feira, 25/07. <a href="https://t.co/QwemPdFMmI">pic.twitter.com/QwemPdFMmI</a></p>&mdash; Central Eleitoral (@CentralEleicoes) <a href="https://twitter.com/CentralEleicoes/status/1549754820357234689?ref_src=twsrc%5Etfw">July 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        <blockquote class="twitter-tweet"><p lang="pt" dir="ltr">🔙📊ELA VOLTOU: Pesquisa XP/Ipespe, que foi cancelada, em junho, após boicote de bolsonaristas, foi a campo no dia de hoje e tem previsão de divulgação para a próxima segunda-feira, 25/07. <a href="https://t.co/QwemPdFMmI">pic.twitter.com/QwemPdFMmI</a></p>&mdash; Central Eleitoral (@CentralEleicoes) <a href="https://twitter.com/CentralEleicoes/status/1549754820357234689?ref_src=twsrc%5Etfw">July 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
                     </div>
                 </div>
             </div>

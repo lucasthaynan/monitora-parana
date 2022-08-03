@@ -8,21 +8,50 @@
 // como instalar o node e npm e importar dependências/bibliotecas: 
 // https://www.youtube.com/watch?v=7iSylg2UvU0
 
-// function nextweek(){
-//   var today = new Date();
-//   var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);
 
-//   console.log(nextweek)
-//   return nextweek;
-// }
+// fetch('https://raw.githubusercontent.com/lucasthaynan/litrometro/main/api/dados_do_dia_litrometro.json')
+//   .then(response => response.json() )
+//   .then(data => {
 
-// nextweek()
 
-// var today = new Date();
 
-// var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
-// console.log(date)
+// OCULTANDO TODOS OS GRAFICOS DA PÁGINA
+// document.querySelectorAll('.grafico-js').forEach(grafico => {
+//   // ocultando cada um dos gráficos
+//   grafico.style.display = 'none';
+
+// });
+
+// DESOCULTANDO O GRÁFICO DA ULTIMA SEMANA
+// document.getElementById("chart-semana").style.display="block";
+
+let btn30Dias = document.getElementById('ultimo-mes')
+
+let btn7Dias = document.getElementById('ultima-semana')
+
+btn30Dias.addEventListener('click', e => {
+
+  geraGrafico(listaDadosMes)
+  console.log(listaDadosMes)
+
+  document.getElementById("ultima-semana").classList.remove('ativo')
+  document.getElementById("ultimo-mes").classList.add('ativo')
+  // console.log(e)
+
+  // document.getElementById("chart-semana").style.display="none";
+  // document.getElementById("chart-mes").style.display="block";
+    
+})
+
+btn7Dias.addEventListener('click', e => {
+  // console.log(e)
+  geraGrafico(listaDadosSemana)
+  console.log(listaDadosSemana)
+  document.getElementById("ultima-semana").classList.add('ativo')
+  document.getElementById("ultimo-mes").classList.remove('ativo')
+    
+})
 
 function getDateTime(quantDiaAnterior) {
   var now     = new Date();
@@ -46,7 +75,7 @@ function getDateTime(quantDiaAnterior) {
   return dateTime
 }
 
-// getDateTime(quantDiaAnterior=3)
+
 let listaDiasUltimaSemana = []
 let diasSemanaAnterior = [0,1,2,3,4,5,6]
 
@@ -82,12 +111,101 @@ let termo4Mes = 0
 
 let listaDadosSemana = []
 let listaDadosMes = []
-// convertendo arquivo csv em arrays
+
 
 let idTweet = 0
 let tweetsUltimaSemana = {}
 let tweetsUltimoMes = {}
 
+
+// fetch('data_tweets_finais.json')
+//   .then(response => response.json())
+//   .then(data => {
+
+//     data.forEach(element => {
+//       // console.log(element);
+//       let idTweetAtual = idTweet
+//       idTweet += 1
+//       let data = element['DataPublicacao'].split(' ')
+//       // console.log(data)
+
+
+//       if (listaDiasUltimaSemana.includes(data[0])) {
+
+//         if (element['Termo1'] == 1) {
+//           termo1Semana += 1
+//         }
+    
+//         if (element['Termo2'] == 1) {
+//           termo2Semana += 1
+//         }
+    
+//         if (element['Termo3'] == 1) {
+//           termo3Semana += 1
+//         }
+    
+//         if (element['Termo4'] == 1) {
+//           termo4Semana += 1
+//         }
+
+//       tweetsUltimaSemana[idTweetAtual] = { 
+//           'tweet': element['Tweet'],
+//           'data': data[0],
+//           'termo1': element['Termo1'],
+//           'embed': element['Embed'],
+//       }     
+
+//     }
+
+//     if (listaDiasUltimoMes.includes(data[0])) {
+
+//       if (element['Termo1'] == 1) {
+//         termo1Mes += 1
+//       }
+  
+//       if (element['Termo2'] == 1) {
+//         termo2Mes += 1
+//       }
+  
+//       if (element['Termo3'] == 1) {
+//         termo3Mes += 1
+//       }
+  
+//       if (element['Termo4'] == 1) {
+//         termo4Mes += 1
+//       }
+
+//       tweetsUltimoMes[idTweetAtual] = { 
+//         'tweet': element['Tweet'],
+//         'data': data[0],
+//         'termo1': element['Termo1'],
+//         'embed': element['Embed'],
+//     }
+
+
+//     }
+//   })
+
+//       listaDadosSemana = [termo1Semana,
+//                                   termo2Semana,
+//                                   termo3Semana,
+//                                   termo4Semana]
+    
+//       listaDadosMes = [termo1Mes,
+//                             termo2Mes,
+//                             termo3Mes,
+//                             termo4Mes]
+    
+//     // document.getElementById("chart-semana").style.display="block";
+//     // geraGrafico(listaDadosSemana, 'semana')
+//     geraGrafico(listaDadosSemana)
+//     // geraGrafico(listaDadosMes)
+
+//   })
+
+// ---------------------------------
+
+// convertendo arquivo csv em arrays
 var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTMxyrSHWBwhKF9YfpIZFFzYs_5h3FT873w4PVz6dz9bN08u9fpJpnuXNC_s9657b_ZOUsa6Xb4OfTY/pub?gid=0&single=true&output=csv";
 
 const response = fetch(url)
@@ -98,7 +216,6 @@ const response = fetch(url)
 response.then(resultado => {
   console.log(resultado['data'])
 
-  // resultado['data']
 
   // ignorando o primeiro elemento da lista de array (cabeçalho)
   let dadosCsv = resultado['data'].filter((element, index) => index >= 1);
@@ -112,8 +229,6 @@ response.then(resultado => {
 
 
     if (listaDiasUltimaSemana.includes(data[0])) {
-
-      // console.log('okkkk')
 
       if (element[12] == 1) {
         termo1Semana += 1
@@ -130,8 +245,6 @@ response.then(resultado => {
       if (element[15] == 1) {
         termo4Semana += 1
       }
-
-      // console.log('indo')
 
       tweetsUltimaSemana[idTweetAtual] = { 
           'tweet': element[0],
@@ -167,18 +280,13 @@ response.then(resultado => {
         'embed': element[16],
     }
 
-    // console.log('foii')
-    
+
   }
   
 
   })
 
-  // console.log('term1: ' + termo1 + ', term2: ' + termo2 + ', term3: ' + termo3 + ', term4: ')
 
-  
-
-  console.log('ok7')
 
   listaDadosSemana = [termo1Semana,
                           termo2Semana,
@@ -190,23 +298,241 @@ response.then(resultado => {
                         termo3Mes,
                         termo4Mes]
 
-  geraGrafico(listaDadosSemana, 'semana')
-  geraGrafico(listaDadosMes, 'mes')
-  console.log('ok')
+  geraGrafico(listaDadosSemana)
+  // geraGrafico(listaDadosMes)
 
-  // console.log(tweetsUltimaSemana)
 
 })
 
 
-// geraGrafico([0,0,0,0])
-
-// let termoBolsonaro = 0
-// let termoFraudeNasUrnas = 0
-// let termoLula = 0
-// let termoStfCorrupto = 0
-
 let tweetEmbed = ''
+
+
+function inserirEmbed(tweetEmbed) {
+
+  let parser = new DOMParser();
+  let doc = parser.parseFromString(tweetEmbed, "text/html");
+  console.log(doc)
+  
+  blockquote = doc.querySelector('blockquote')
+
+  document.querySelector('#termo1').appendChild(blockquote)
+
+}
+
+
+
+  // chart
+
+// function geraGrafico(listaDados, periodo) {
+//   var grafico = new Chart('chart-'+periodo, {
+//     type: "radar",
+//     data: {
+//       // valores do eixo X
+      
+//       labels: ['Fake','Corrupto', 'Fraude', 'Roubou'],        
+//       datasets: [
+//         {
+//         // valores do eixo Y
+//         data: listaDados,
+//         borderColor: '#E9A82F',
+//         fill: true,
+//         label: 'testando'
+//       }       
+//     ]},
+//     options: {
+//       scales: { 
+//         r: {
+//           grid: {
+//               circular: true
+//           },
+//           beginAtZero: true
+//                   }},
+//       legend: {
+//         display: false
+//       },
+
+//       interaction: {
+//           intersect: false,
+//           mode: 'index',
+//       },
+
+//       plugins: {
+//         legend: {
+//             labels: {
+//                 font: {
+//                     size: 16,                    
+//                 }
+//             }
+//         }
+//       },     
+
+//     }
+//   });   
+
+//   return grafico;
+// }
+
+function recriandoGrafico () {
+  // apagando e recriando o elemento 'canvas' para resetar os dados do gráfico
+  let chartElement = document.getElementById("chart");    
+  chartElement.remove();
+
+  let canvaElement = document.createElement('canvas');
+
+  canvaElement.setAttribute("id", "chart");
+  canvaElement.setAttribute("class", "grafico_chart_js");
+  canvaElement.setAttribute("width", 400);
+  canvaElement.setAttribute("height", 300)
+  
+  document.querySelector(".radar-chart").appendChild(canvaElement);  
+
+}
+
+function geraGrafico(listaDados) {
+  recriandoGrafico() 
+
+
+  const blue = "#095A99";
+  const color = Chart.helpers.color;
+    
+  var grafico = new Chart('chart', {
+    type: 'radar',
+    data: {
+      labels: ['Fake','Corrupto', 'Fraude', 'Roubou'],
+      datasets: [{
+        label: 'Citações do termo',
+        backgroundColor: color(blue).alpha(0.2).rgbString(),
+        borderColor: blue,
+        pointBackgroundColor: blue,
+        data: listaDados
+      }]
+    },
+    options: {
+      scales: { // <-- Note change in options from scale to scales
+          r: {
+            grid: {
+               circular: true
+            },
+            beginAtZero: true
+          }
+      }
+    }
+  });
+  return grafico
+
+}
+
+
+// function geraGraficoMes(listaDados) {
+  
+//   const blue = "#095A99";
+//   const color = Chart.helpers.color;
+//   const config = {
+//     type: 'radar',
+//     data: {
+//       labels: ['Fake','Corrupto', 'Fraude', 'Roubou'],
+//       datasets: [{
+//         label: 'Citações do termo',
+//         backgroundColor: color(blue).alpha(0.2).rgbString(),
+//         borderColor: blue,
+//         pointBackgroundColor: blue,
+//         data: listaDados
+//       }]
+//     },
+//     options: {
+//       scales: { // <-- Note change in options from scale to scales
+//           r: {
+//             grid: {
+//                circular: true
+//             },
+//             beginAtZero: true
+//           }
+//       }
+//     }
+//   };
+  
+//   window.onload = function () {
+//     window.myRadar = new Chart(document.getElementById('chart'), config);
+//   };
+
+// }
+
+
+// REQUISAO POSTS ANCORA DOS FATOS
+
+function carregarMaterias(numeroContainerNews) {
+  fetch('https://ancoradosfatos.com.br/wp-json/wp/v2/posts')
+    .then(response => response.json() )
+    .then(data => {
+
+      let tituloMateria = data[numeroContainerNews].title.rendered;
+
+      let urlMateria = data[numeroContainerNews].link; 
+
+      let apiFotosMateria = data[numeroContainerNews]._links['wp:featuredmedia'][0]['href'];
+     
+      
+      fetch(apiFotosMateria)
+        .then(response => response.json() )
+        .then(data => {
+
+          let urlFotoMateria = data.source_url;
+          
+          document.querySelectorAll('.lista-noticias img')[numeroContainerNews].src = urlFotoMateria;
+          // console.log()
+          document.querySelectorAll('.lista-noticias a')[numeroContainerNews].href = urlMateria;
+          document.querySelectorAll('.lista-noticias h2')[numeroContainerNews].innerHTML = tituloMateria;
+
+        })
+        .catch((error) => {
+          console.log(error)
+      });
+
+      
+          
+        
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+}
+
+let listaMaterias = [0,1,2,3];
+// console.log(listaMaterias);
+
+for (let materia in listaMaterias) {
+  carregarMaterias(materia)
+}
+
+
+// function pegaUrlImgPost(apiFotosMateria, numeroContainerNews) {
+//   fetch(apiFotosMateria)
+//     .then(response => response.json() )
+//     .then(data => {
+//       // console.log(data)
+//       let urlFotoMateria = data.source_url;
+//       console.log(urlFotoMateria);  
+
+      
+      
+
+//     })
+//     .catch((error) => {
+//       console.log(error)
+//     });
+// }
+
+// function atualizarMateriaPagina(urlFotoMateria, tituloMateria){
+//   // ADICIONANDO URL DA MATERIA E FOTOS NA PAGINA        
+
+//   document.querySelectorAll('.lista-noticias img')[numeroContainerNews].src = urlFotoMateria;
+//   console.log()
+//   // document.querySelectorAll('section.noticias .news > a')[numeroContainerNews].href = urlMateria;
+//   document.querySelectorAll('.lista-noticias h2')[numeroContainerNews].innerHTML = tituloMateria;
+// }
+
+
 
 // const options = {
 //   method: 'GET',
@@ -289,142 +615,3 @@ let tweetEmbed = ''
 
 
 // pegaDados()
-
-
-
-function inserirEmbed(tweetEmbed) {
-
-  let parser = new DOMParser();
-  let doc = parser.parseFromString(tweetEmbed, "text/html");
-  console.log(doc)
-  
-  blockquote = doc.querySelector('blockquote')
-
-  document.querySelector('#termo1').appendChild(blockquote)
-
-}
-
-
-// console.log(typeof termoStfCorrupto)
-
-  // chart
-
-function geraGrafico(listaDados, periodo) {
-  
-  const blue = "#095A99";
-  const color = Chart.helpers.color;
-  const config = {
-    type: 'radar',
-    data: {
-      labels: ['Fake','Corrupto', 'Fraude', 'Roubou'],
-      datasets: [{
-        label: 'Citações do termo',
-        backgroundColor: color(blue).alpha(0.2).rgbString(),
-        borderColor: blue,
-        pointBackgroundColor: blue,
-        data: listaDados
-      }]
-    },
-    options: {
-      scales: { // <-- Note change in options from scale to scales
-          r: {
-            grid: {
-               circular: true
-            },
-            beginAtZero: true
-          }
-      }
-    }
-  };
-  
-  window.onload = function () {
-    window.myRadar = new Chart(document.getElementById('chart-'+periodo), config);
-  };
-
-}
-
-
-
-// REQUISAO POSTS AGENCIA TATURES
-
-
-
-
-
-function carregarMaterias(numeroContainerNews) {
-  fetch('https://ancoradosfatos.com.br/wp-json/wp/v2/posts')
-    .then(response => response.json() )
-    .then(data => {
-
-      // console.log(data)
-      let tituloMateria = data[numeroContainerNews].title.rendered;
-      // console.log(tituloMateria)
-      let urlMateria = data[numeroContainerNews].link; 
-      // console.log(urlMateria)
-      let apiFotosMateria = data[numeroContainerNews]._links['wp:featuredmedia'][0]['href'];
-      // console.log(apiFotosMateria)
-      // console.log(tituloMateria);
-      // console.log(urlMateria);
-
-      // pegaUrlImgPost(apiFotosMateria, numeroContainerNews) 
-      
-      
-      fetch(apiFotosMateria)
-        .then(response => response.json() )
-        .then(data => {
-          // console.log(data)
-          let urlFotoMateria = data.source_url;
-          // console.log(urlFotoMateria);  
-
-          
-          document.querySelectorAll('.lista-noticias img')[numeroContainerNews].src = urlFotoMateria;
-          // console.log()
-          document.querySelectorAll('.lista-noticias a')[numeroContainerNews].href = urlMateria;
-          document.querySelectorAll('.lista-noticias h2')[numeroContainerNews].innerHTML = tituloMateria;
-
-        })
-        .catch((error) => {
-          console.log(error)
-      });
-
-      
-          
-        
-    })
-    .catch((error) => {
-      console.log(error)
-    });
-}
-
-let listaMaterias = [0,1,2,3];
-// console.log(listaMaterias);
-
-for (let materia in listaMaterias) {
-  carregarMaterias(materia)
-}
-
-// function pegaUrlImgPost(apiFotosMateria, numeroContainerNews) {
-//   fetch(apiFotosMateria)
-//     .then(response => response.json() )
-//     .then(data => {
-//       // console.log(data)
-//       let urlFotoMateria = data.source_url;
-//       console.log(urlFotoMateria);  
-
-      
-      
-
-//     })
-//     .catch((error) => {
-//       console.log(error)
-//     });
-// }
-
-// function atualizarMateriaPagina(urlFotoMateria, tituloMateria){
-//   // ADICIONANDO URL DA MATERIA E FOTOS NA PAGINA        
-
-//   document.querySelectorAll('.lista-noticias img')[numeroContainerNews].src = urlFotoMateria;
-//   console.log()
-//   // document.querySelectorAll('section.noticias .news > a')[numeroContainerNews].href = urlMateria;
-//   document.querySelectorAll('.lista-noticias h2')[numeroContainerNews].innerHTML = tituloMateria;
-// }
