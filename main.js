@@ -8,70 +8,261 @@
 // como instalar o node e npm e importar dependências/bibliotecas: 
 // https://www.youtube.com/watch?v=7iSylg2UvU0
 
-geraGrafico([0,0,0,0])
+// function nextweek(){
+//   var today = new Date();
+//   var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);
 
-let termoBolsonaro = 0
-let termoFraudeNasUrnas = 0
-let termoLula = 0
-let termoStfCorrupto = 0
+//   console.log(nextweek)
+//   return nextweek;
+// }
+
+// nextweek()
+
+// var today = new Date();
+
+// var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+// console.log(date)
+
+function getDateTime(quantDiaAnterior) {
+  var now     = new Date();
+
+  if (quantDiaAnterior >=1) {
+    now.setDate(now.getDate() - quantDiaAnterior); // pegando data de um dia anterior a hoje
+  } 
+  var year    = now.getFullYear();
+  var month   = now.getMonth()+1; 
+  var day     = now.getDate();
+
+  if(month.toString().length == 1) {
+       month = '0'+month;
+  }
+  if(day.toString().length == 1) {
+       day = '0'+day;
+  }   
+
+  var dateTime = year+'-'+month+'-'+day
+  // console.log(dateTime)
+  return dateTime
+}
+
+// getDateTime(quantDiaAnterior=3)
+let listaDiasUltimaSemana = []
+let diasSemanaAnterior = [0,1,2,3,4,5,6]
+
+let listaDiasUltimoMes = []
+let diasMesAnterior = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]
+
+function ultimaSemana() { 
+  diasSemanaAnterior.forEach(dia => {
+    listaDiasUltimaSemana.push(getDateTime(dia))
+  })
+}
+
+function ultimaMes() { 
+  diasMesAnterior.forEach(dia => {
+    listaDiasUltimoMes.push(getDateTime(dia))
+  })
+}
+
+
+ultimaMes()
+ultimaSemana()
+
+
+let termo1Semana = 0
+let termo2Semana = 0
+let termo3Semana = 0
+let termo4Semana = 0
+
+let termo1Mes = 0
+let termo2Mes = 0
+let termo3Mes = 0
+let termo4Mes = 0
+
+let listaDadosSemana = []
+let listaDadosMes = []
+// convertendo arquivo csv em arrays
+
+let idTweet = 0
+let tweetsUltimaSemana = {}
+let tweetsUltimoMes = {}
+
+var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTMxyrSHWBwhKF9YfpIZFFzYs_5h3FT873w4PVz6dz9bN08u9fpJpnuXNC_s9657b_ZOUsa6Xb4OfTY/pub?gid=0&single=true&output=csv";
+
+const response = fetch(url)
+   .then(response => response.text())
+   .then(v => Papa.parse(v))
+   .catch(err => console.log(err))
+
+response.then(resultado => {
+  console.log(resultado['data'])
+
+  // resultado['data']
+
+  // ignorando o primeiro elemento da lista de array (cabeçalho)
+  let dadosCsv = resultado['data'].filter((element, index) => index >= 1);
+
+  dadosCsv.forEach(element => {
+    
+    let idTweetAtual = idTweet
+    idTweet += 1
+    let data = element[5].split(' ')
+
+
+
+    if (listaDiasUltimaSemana.includes(data[0])) {
+
+      // console.log('okkkk')
+
+      if (element[12] == 1) {
+        termo1Semana += 1
+      }
+  
+      if (element[13] == 1) {
+        termo2Semana += 1
+      }
+  
+      if (element[14] == 1) {
+        termo3Semana += 1
+      }
+  
+      if (element[15] == 1) {
+        termo4Semana += 1
+      }
+
+      // console.log('indo')
+
+      tweetsUltimaSemana[idTweetAtual] = { 
+          'tweet': element[0],
+          'data': data[0],
+          'termo1': element[12],
+          'embed': element[16],
+      }     
+
+    }
+
+    if (listaDiasUltimoMes.includes(data[0])) {
+
+      if (element[12] == 1) {
+        termo1Mes += 1
+      }
+  
+      if (element[13] == 1) {
+        termo2Mes += 1
+      }
+  
+      if (element[14] == 1) {
+        termo3Mes += 1
+      }
+  
+      if (element[15] == 1) {
+        termo4Mes += 1
+      }
+
+      tweetsUltimoMes[idTweetAtual] = { 
+        'tweet': element[0],
+        'data': data[0],
+        'termo1': element[12],
+        'embed': element[16],
+    }
+
+    // console.log('foii')
+    
+  }
+  
+
+  })
+
+  // console.log('term1: ' + termo1 + ', term2: ' + termo2 + ', term3: ' + termo3 + ', term4: ')
+
+  
+
+  console.log('ok7')
+
+  listaDadosSemana = [termo1Semana,
+                          termo2Semana,
+                          termo3Semana,
+                          termo4Semana]
+
+  listaDadosMes = [termo1Mes,
+                        termo2Mes,
+                        termo3Mes,
+                        termo4Mes]
+
+  geraGrafico(listaDadosSemana, 'semana')
+  geraGrafico(listaDadosMes, 'mes')
+  console.log('ok')
+
+  // console.log(tweetsUltimaSemana)
+
+})
+
+
+// geraGrafico([0,0,0,0])
+
+// let termoBolsonaro = 0
+// let termoFraudeNasUrnas = 0
+// let termoLula = 0
+// let termoStfCorrupto = 0
 
 let tweetEmbed = ''
 
-const options = {
-  method: 'GET',
-    headers: {
-      'xc-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vbml0b3JmYWtlcGFyYW5hQGdtYWlsLmNvbSIsImZpcnN0bmFtZSI6bnVsbCwibGFzdG5hbWUiOm51bGwsImlkIjoidXNfbWN6cXE2N2tybTl6OWMiLCJyb2xlcyI6InVzZXIsc3VwZXIiLCJ0b2tlbl92ZXJzaW9uIjoiNGE5YWVhMTgyNTdkYTg3MGU1MDZjMzQyZjFjMjA5NTExZmE1NWMwMThlZGM4YzMxOWU5ZjQxYTA0MDM2ZjQ5ZDgwY2VjNjU0OTJjYWE0OTAiLCJpYXQiOjE2NTg3NTc0MTEsImV4cCI6MTY1ODc5MzQxMX0.sPc1DGtW3ZOjwZI-Or85oRJr3fdGpk5737QOeljWdGA'
-    }
-};
-async function pegaDados() {
+// const options = {
+//   method: 'GET',
+//   headers: {
+//     'xc-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vbml0b3JmYWtlcGFyYW5hQGdtYWlsLmNvbSIsImZpcnN0bmFtZSI6bnVsbCwibGFzdG5hbWUiOm51bGwsImlkIjoidXNfbWN6cXE2N2tybTl6OWMiLCJyb2xlcyI6InVzZXIsc3VwZXIiLCJ0b2tlbl92ZXJzaW9uIjoiNGE5YWVhMTgyNTdkYTg3MGU1MDZjMzQyZjFjMjA5NTExZmE1NWMwMThlZGM4YzMxOWU5ZjQxYTA0MDM2ZjQ5ZDgwY2VjNjU0OTJjYWE0OTAiLCJpYXQiOjE2NTkwMzE2NjcsImV4cCI6MTY1OTA2NzY2N30.tHjRzKPhtO9d74tNLk2szyInfTFz4rYXhuprz49JShU'
+//   }
+// };
+// async function pegaDados() {
 
-  await fetch('http://monitor-fake.herokuapp.com/api/v1/db/data/noco/p_1t49u071lp0ie2/TweetsValidosFinais/views/TweetsValidosFinais?limit=100&offset=10&where=', options)
-  .then(response => response.json())
-  .then(data => {
+//   await fetch('http://monitor-fake.herokuapp.com/api/v1/db/data/noco/p_1t49u071lp0ie2/TweetsValidosFinais/views/TweetsValidosFinais?limit=100&offset=10&where=', options)
+//   .then(response => response.json())
+//   .then(data => {
 
-    tweetEmbed = data['list'][0]['Embed']
-    tweetEmbed2 = data['list'][1]['Embed']
+//     tweetEmbed = data['list'][0]['Embed']
+//     tweetEmbed2 = data['list'][1]['Embed']
 
-    data['list'].forEach(element => {
+//     data['list'].forEach(element => {
       
-      element['TermoBolsonaro'] = parseInt(element['TermoBolsonaro'])
-      element['TermoLula'] = parseInt(element['TermoLula'])
-      element['TermoFraudeNasUrnas'] = parseInt(element['TermoFraudeNasUrnas'])
-      element['TermoStfCorrupto'] = parseInt(element['TermoStfCorrupto'])
+//       element['Termo1'] = parseInt(element['Termo1'])
+//       element['Termo2'] = parseInt(element['Termo2'])
+//       element['Termo3'] = parseInt(element['Termo3'])
+//       element['Termo4'] = parseInt(element['Termo4'])
 
-      if (element['TermoBolsonaro'] == 1) {
-        termoBolsonaro += 1
-      }
+//       if (element['Termo1'] == 1) {
+//         termoLula += 1
+//       }
 
-      if (element['TermoLula'] == 1) {
-        termoLula += 1
-      }
+//       if (element['Termo2'] == 1) {
+//         termoBolsonaro += 1
+//       }
 
-      if (element['TermoFraudeNasUrnas'] == 1) {
-        termoFraudeNasUrnas += 1
-      }
+//       if (element['Termo3'] == 1) {
+//         termoFraudeNasUrnas += 1
+//       }
 
-      if (element['TermoStfCorrupto'] == 1) {
-        termoStfCorrupto += 1
-      }
-
-
-    });
+//       if (element['Termo4'] == 1) {
+//         termoStfCorrupto += 1
+//       }
 
 
-  })
-  .catch((error) => {
-    console.log(error)
-  });
+//     });
+
+
+//   })
+//   .catch((error) => {
+//     console.log(error)
+//   });
 
   // atribuindo valores fakes para algumas variaveis como teste
 
-  termoFraudeNasUrnas = 8
-  termoStfCorrupto = 15
+  // termoFraudeNasUrnas = 8
+  // termoStfCorrupto = 15
 
-  let listaDados = [termoBolsonaro, termoLula, termoFraudeNasUrnas, termoStfCorrupto]
+  
 
-  geraGrafico(listaDados)
+  // geraGrafico(listaDados)
 
   // function (tweetEmbed) {
   //   var parser = new DOMParser();
@@ -79,13 +270,13 @@ async function pegaDados() {
   //   return doc.body;
   // };
 
-  console.log(tweetEmbed);
+  // console.log(tweetEmbed);
 
   
   // script = doc.querySelector('script')
 
-  inserirEmbed(tweetEmbed)
-  inserirEmbed(tweetEmbed2)
+  // inserirEmbed(tweetEmbed)
+  // inserirEmbed(tweetEmbed2)
 
   // inserirEmbed()
 
@@ -95,9 +286,9 @@ async function pegaDados() {
   // console.log('termoLula: ' + termoLula)
   // console.log('termoFraudeNasUrnas: ' + termoFraudeNasUrnas)
   // console.log('termoStfCorrupto: ' + termoStfCorrupto)
-}
 
-pegaDados()
+
+// pegaDados()
 
 
 
@@ -114,18 +305,18 @@ function inserirEmbed(tweetEmbed) {
 }
 
 
-console.log(typeof termoStfCorrupto)
+// console.log(typeof termoStfCorrupto)
 
   // chart
 
-function geraGrafico(listaDados) {
+function geraGrafico(listaDados, periodo) {
   
   const blue = "#095A99";
   const color = Chart.helpers.color;
   const config = {
     type: 'radar',
     data: {
-      labels: ['Bolsonaro','Lula', ['Fraude', 'nas urnas'], ['STF', 'corrupto']],
+      labels: ['Fake','Corrupto', 'Fraude', 'Roubou'],
       datasets: [{
         label: 'Citações do termo',
         backgroundColor: color(blue).alpha(0.2).rgbString(),
@@ -147,7 +338,7 @@ function geraGrafico(listaDados) {
   };
   
   window.onload = function () {
-    window.myRadar = new Chart(document.getElementById('chart'), config);
+    window.myRadar = new Chart(document.getElementById('chart-'+periodo), config);
   };
 
 }
@@ -165,13 +356,13 @@ function carregarMaterias(numeroContainerNews) {
     .then(response => response.json() )
     .then(data => {
 
-      console.log(data)
+      // console.log(data)
       let tituloMateria = data[numeroContainerNews].title.rendered;
-      console.log(tituloMateria)
+      // console.log(tituloMateria)
       let urlMateria = data[numeroContainerNews].link; 
-      console.log(urlMateria)
+      // console.log(urlMateria)
       let apiFotosMateria = data[numeroContainerNews]._links['wp:featuredmedia'][0]['href'];
-      console.log(apiFotosMateria)
+      // console.log(apiFotosMateria)
       // console.log(tituloMateria);
       // console.log(urlMateria);
 
@@ -183,7 +374,7 @@ function carregarMaterias(numeroContainerNews) {
         .then(data => {
           // console.log(data)
           let urlFotoMateria = data.source_url;
-          console.log(urlFotoMateria);  
+          // console.log(urlFotoMateria);  
 
           
           document.querySelectorAll('.lista-noticias img')[numeroContainerNews].src = urlFotoMateria;
@@ -206,7 +397,7 @@ function carregarMaterias(numeroContainerNews) {
 }
 
 let listaMaterias = [0,1,2,3];
-console.log(listaMaterias);
+// console.log(listaMaterias);
 
 for (let materia in listaMaterias) {
   carregarMaterias(materia)

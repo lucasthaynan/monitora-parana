@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script src="https://unpkg.com/papaparse@5.3.2/papaparse.min.js"></script>
     <title>Monitora Paraná | Âncora dos Fatos</title>
+
 </head>
 <body>
     <header>
@@ -28,7 +30,8 @@
                 <span class="30-dias">Últimos 30 dias</span>
             </div>
             <div class="radar-chart">
-                <canvas id="chart" width="400" height="220"></canvas>
+                <canvas id="chart-semana" width="400" height="220"></canvas>
+                <canvas id="chart-mes" width="400" height="220"></canvas>
                 <!-- <img src="./imagens/grafico_exemplo.png" alt=""> -->
             </div>
         </section>
