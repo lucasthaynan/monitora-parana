@@ -117,6 +117,8 @@ let idTweet = 0
 let tweetsUltimaSemana = {}
 let tweetsUltimoMes = {}
 
+let embedsTweets = {}
+
 
 // fetch('data_tweets_finais.json')
 //   .then(response => response.json())
@@ -226,7 +228,39 @@ response.then(resultado => {
     idTweet += 1
     let data = element[5].split(' ')
 
+    if (element[12] == 1) {
+      embedsTweets[idTweetAtual] = {
+        'id': idTweetAtual, 
+        'termo1': 'sim',
+        'termo1-embed': element[16]
+      }
+    }
 
+    if (element[13] == 1) {
+      embedsTweets[idTweetAtual] = {
+        'id': idTweetAtual, 
+        'termo2': 'sim',
+        'termo2-embed': element[16]
+      }
+    }
+    if (element[14] == 1) {
+      embedsTweets[idTweetAtual] = {
+        'id': idTweetAtual, 
+        'termo3': 'sim',
+        'termo3-embed': element[16]
+      }
+    }
+    if (element[15] == 1) {
+      embedsTweets[idTweetAtual] = {
+        'id': idTweetAtual, 
+        'termo4': 'sim',
+        'termo4-embed': element[16]
+      }
+    }
+
+
+
+    // embedsTweets[]
 
     if (listaDiasUltimaSemana.includes(data[0])) {
 
@@ -300,23 +334,41 @@ response.then(resultado => {
 
   geraGrafico(listaDadosSemana)
   // geraGrafico(listaDadosMes)
-
+  inserindoEmbedsPaginas(embedsTweets)
 
 })
 
+function inserindoEmbedsPaginas(embedsTweets){
+  Object.values(embedsTweets).forEach(embed => {
+    console.log(embed);
+    console.log(Object.keys(embed)[1])
 
-let tweetEmbed = ''
+    if (Object.keys(embed)[1] == 'termo1') {
+      inserirEmbed(Object.values(embed)[2], 'termo1')
+    }
+    if (Object.keys(embed)[1] == 'termo2') {
+      inserirEmbed(Object.values(embed)[2], 'termo2')
+    }
+    if (Object.keys(embed)[1] == 'termo3') {
+      inserirEmbed(Object.values(embed)[2], 'termo3')
+    }
+    if (Object.keys(embed)[1] == 'termo4') {
+      inserirEmbed(Object.values(embed)[2], 'termo4')
+    }
+  })
+}
+// embedsTweets.forEach
 
+// inserirEmbed(tweetEmbed)
 
-function inserirEmbed(tweetEmbed) {
+function inserirEmbed(tweetEmbed, termoId) {
 
-  let parser = new DOMParser();
-  let doc = parser.parseFromString(tweetEmbed, "text/html");
-  console.log(doc)
+  let tweetElement = document.getElementById(termoId);
+  let creatElement = document.createElement('div');
+
+  creatElement.innerHTML = tweetEmbed
   
-  blockquote = doc.querySelector('blockquote')
-
-  document.querySelector('#termo1').appendChild(blockquote)
+  tweetElement.appendChild(creatElement)
 
 }
 
