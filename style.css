@@ -202,6 +202,65 @@ section.noticias .lista-noticias a {
 section.noticias .lista-noticias h2 {
     font-size: 1.1rem;
 }
+
+section.pop-up {
+    /* centralizar container branco na tela */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 630px;
+    height: 470px;         
+
+    box-shadow: 8px 10px 5px rgba(0, 0, 0, 0.07);
+    border-radius: 30px;    
+
+    padding: 30px 30px;
+
+    background-color: #391b93ee;
+    border: 2px solid #FFFFFF;
+
+    transition: all 0.5s ease-out;
+    
+    /* ocultar */
+    display: block;
+
+    /* z-index: 300;
+
+    color: #FFFFFF; */
+}
+
+
+div.btn-pop-up {
+    height: 5px;
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+p#fechar-pop-up {
+    width: 45px;
+    height: 45px;
+    position: relative;
+    text-align: center;
+    right: -48px;
+    top: -48px;
+    background-color: #1e0b56;
+    border: 2px solid #fff;
+    border-radius: 99px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 25px;
+    cursor: pointer;
+    
+}
+
+
+
 /* 
 
 blockquote.twitter-tweet {
