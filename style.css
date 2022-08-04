@@ -173,17 +173,34 @@ section.noticias .lista-noticias {
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    width: 270px;
+    width: 1100px;
     gap: 40px;
 }
 
 section.noticias .lista-noticias img {
-    width: 270px;
+    width: auto;
+    height: 135px;
     margin-bottom: 10px;
+    
+}
+
+a {
+    color: var(--preto);
+}
+
+a:hover {
+    color: #353535;
+}
+
+section.noticias .lista-noticias a {
+    width: 250px;
+    height: auto;
+    overflow:hidden;
+    
 }
 
 section.noticias .lista-noticias h2 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 /* 
 
