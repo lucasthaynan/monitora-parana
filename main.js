@@ -13,6 +13,23 @@
 //   .then(response => response.json() )
 //   .then(data => {
 
+  window.twttr = (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+      t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  
+    t._e = [];
+    t.ready = function(f) {
+      t._e.push(f);
+    };
+    console.log(t)
+    return t;
+  }(document, "script", "twitter-wjs"));
+
 
 
 
@@ -379,6 +396,9 @@ function inserirEmbed(tweetEmbed, termoId) {
   creatElement.innerHTML = tweetEmbed
   
   tweetElement.appendChild(creatElement)
+
+  // Função da API JavaScript do Twitter para carregar o embed
+  twttr.widgets.load(tweetElement)
 
 }
 
