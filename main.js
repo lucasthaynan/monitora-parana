@@ -13,22 +13,22 @@
 //   .then(response => response.json() )
 //   .then(data => {
 
-  window.twttr = (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0],
-      t = window.twttr || {};
-    if (d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "https://platform.twitter.com/widgets.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  
-    t._e = [];
-    t.ready = function(f) {
-      t._e.push(f);
-    };
-    console.log(t)
-    return t;
-  }(document, "script", "twitter-wjs"));
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+  console.log(t)
+  return t;
+}(document, "script", "twitter-wjs"));
 
 
 
@@ -367,8 +367,8 @@ response.then(resultado => {
 
 function inserindoEmbedsPaginas(embedsTweets){
   Object.values(embedsTweets).forEach(embed => {
-    console.log(embed);
-    console.log(Object.keys(embed)[1])
+    // console.log(embed);
+    // console.log(Object.keys(embed)[1])
 
     if (Object.keys(embed)[1] == 'termo1') {
       inserirEmbed(Object.values(embed)[2], 'termo1')
@@ -402,7 +402,17 @@ function inserirEmbed(tweetEmbed, termoId) {
 
 }
 
+// POP-UP
 
+let btnFecharPopUp = document.querySelector('#fechar-pop-up')
+btnFecharPopUp.addEventListener('click', e => {
+  document.querySelector('section.pop-up').style.display = 'none'
+})
+
+let btnAbrirPopUp = document.querySelector('.btn-metodologia')
+btnAbrirPopUp.addEventListener('click', e => {
+  document.querySelector('section.pop-up').style.display = 'block'
+})
 
   // chart
 
