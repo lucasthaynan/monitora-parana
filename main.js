@@ -505,6 +505,11 @@ function geraGrafico(listaDados) {
       
       scales: { // <-- Note change in options from scale to scales
           r: {
+            pointLabels: {
+              font: {
+                size: 14,
+              }
+            },
             grid: {
                circular: true
             },
