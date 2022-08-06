@@ -491,7 +491,7 @@ function geraGrafico(listaDados) {
   var grafico = new Chart('chart', {
     type: 'radar',
     data: {
-      labels: ['Fake','Corrupto', 'Fraude', 'Roubou'],
+      labels: ['Fake','Corrupto', 'Roubo', 'Fraude'],
       datasets: [{
         label: 'Citações do termo',
         backgroundColor: color(blue).alpha(0.2).rgbString(),
@@ -501,16 +501,27 @@ function geraGrafico(listaDados) {
       }]
     },
     options: {
+      
+      
       scales: { // <-- Note change in options from scale to scales
           r: {
             grid: {
                circular: true
             },
             beginAtZero: true
-          }
-      }
+          },
+
+      },
+      plugins: {
+        legend: {
+            labels: {
+                font: {
+                    size: 13,                    
+                }
+            }
+        }
     }
-  });
+  }});
   return grafico
 
 }
