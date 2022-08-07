@@ -475,7 +475,7 @@ function recriandoGrafico () {
   canvaElement.setAttribute("id", "chart");
   canvaElement.setAttribute("class", "grafico_chart_js");
   canvaElement.setAttribute("width", 400);
-  canvaElement.setAttribute("height", 300)
+  canvaElement.setAttribute("height", 400)
   
   document.querySelector(".radar-chart").appendChild(canvaElement);  
 
@@ -501,8 +501,12 @@ function geraGrafico(listaDados) {
       }]
     },
     options: {
-      
-      
+
+      // deixar gráfico responsivo:
+      maintainAspectRatio: false,
+      responsive: true,
+      // aspectRatio: 2, 
+
       scales: { // <-- Note change in options from scale to scales
           r: {
             pointLabels: {
@@ -527,10 +531,18 @@ function geraGrafico(listaDados) {
         }
     }
   }});
+  
   return grafico
 
 }
 
+
+// AJUSTAR TAMANHO DO GRÁFICO QUANDO A TELA ESTIVER MENOR QUE 450PX DE LARGURA
+// if (window.innerWidth <= 450){
+//   // document.querySelector('canvas').setAttribute("width", "300")
+//   document.getElementByIdet('chart').height = 200
+//   console.log('oookk')
+// }
 
 // function geraGraficoMes(listaDados) {
   

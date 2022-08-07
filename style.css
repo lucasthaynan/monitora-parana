@@ -28,7 +28,7 @@ body {
 
 
 section.titulo {
-    margin: 60px auto;
+    margin: 60px auto 10px auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,7 +62,7 @@ section.grafico {
     justify-content: center;
     align-items: center;
 
-    margin: 70px auto;
+    margin: 40px auto 70px auto;
 }
 
 section.grafico .botoes {
@@ -319,6 +319,9 @@ section.pop-up .textos {
 
     section.titulo > .btn-metodologia {
         font-size: 0.8rem;
+    }
+    div.radar-chart {
+        width: 90vw;
     }
 }
 
