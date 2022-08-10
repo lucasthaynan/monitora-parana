@@ -37,7 +37,7 @@ section.titulo {
 }
 
 section.titulo > h1 {
-    font-size: 5rem;
+    font-size: 3.5rem;
     color: var(--azul-escuro)
 }
 
@@ -87,6 +87,35 @@ section.grafico .botoes span.ativo {
 .chart-mes {
     display: none important!;
 }
+
+
+.tweet-texto {
+    color: white;
+    padding: 20px 10px;
+    font-size: 0.9rem;
+    font-weight: 350;
+    border-bottom: 1px solid var(--azul-escuro);
+}
+
+.dados-tweet {
+    margin-top: 10px;;
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+.dados-tweet > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.dados-tweet img {
+    width: 24px;
+    height: 24px;
+}
+
 
 
 section.lista-tweets {    
@@ -172,7 +201,7 @@ section.noticias > h2 {
 
 
 section.noticias .lista-noticias {
-    margin: 50px 0; 
+    margin: 20px 0; 
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -189,6 +218,15 @@ section.noticias .lista-noticias img {
     margin-bottom: 10px;
     
 }
+
+.nome-ancora,
+.nome-gralhah2 {
+    margin-top: 20px;
+    color: var(--azul-escuro);
+    font-size: 1rem;
+}
+
+
 
 a {
     color: var(--preto);

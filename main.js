@@ -251,34 +251,46 @@ response.then(resultado => {
     idTweet += 1
     let data = element[5].split(' ')
 
-    if (element[12] == 1 && contagemTermo1 <=4) {
+    if (element[12] == 1 && contagemTermo1 <=15) {
       embedsTweets[idTweetAtual] = {
         'id': idTweetAtual, 
+        'tweet': element[0],
+        'likes': element[6],
+        'retweets': element[7],
         'termo1': 'sim',
         'termo1-embed': element[16]
       }
       contagemTermo1 += 1
     }
 
-    if (element[13] == 1 && contagemTermo2 <=4) {
+    if (element[13] == 1 && contagemTermo2 <=15) {
       embedsTweets[idTweetAtual] = {
         'id': idTweetAtual, 
+        'tweet': element[0],
+        'likes': element[6],
+        'retweets': element[7],
         'termo2': 'sim',
         'termo2-embed': element[16]
       }
       contagemTermo2 += 1
     }
-    if (element[14] == 1 && contagemTermo3 <=4) {
+    if (element[14] == 1 && contagemTermo3 <=15) {
       embedsTweets[idTweetAtual] = {
         'id': idTweetAtual, 
+        'tweet': element[0],
+        'likes': element[6],
+        'retweets': element[7],
         'termo3': 'sim',
         'termo3-embed': element[16]
       }
       contagemTermo3 += 1
     }
-    if (element[15] == 1 && contagemTermo4 <=4) {
+    if (element[15] == 1 && contagemTermo4 <=15) {
       embedsTweets[idTweetAtual] = {
         'id': idTweetAtual, 
+        'tweet': element[0],
+        'likes': element[6],
+        'retweets': element[7],
         'termo4': 'sim',
         'termo4-embed': element[16]
       }
@@ -361,44 +373,53 @@ response.then(resultado => {
 
   geraGrafico(listaDadosSemana)
   // geraGrafico(listaDadosMes)
+  console.log(embedsTweets)
   inserindoEmbedsPaginas(embedsTweets)
 
 })
 
 function inserindoEmbedsPaginas(embedsTweets){
-  Object.values(embedsTweets).forEach(embed => {
+  Object.values(embedsTweets).forEach(tweet => {
     // console.log(embed);
-    // console.log(Object.keys(embed)[1])
+    // console.log(Object.values(tweet)[1])
+    let textoDoTweet = Object.values(tweet)[1]
+    let likesTweet = Object.values(tweet)[2]
+    let retweetsTweet = Object.values(tweet)[3]
 
-    if (Object.keys(embed)[1] == 'termo1') {
-      inserirEmbed(Object.values(embed)[2], 'termo1')
+    if (!textoDoTweet.startsWith('RT')) { // verifica se o tweet começa com 'RT' 
+      if (Object.keys(tweet)[4] == 'termo1') {      
+        inserirEmbed(textoDoTweet, likesTweet, retweetsTweet, 'termo1') // chamando a função se inserir o texto do tweet
+      }
+      if (Object.keys(tweet)[4] == 'termo2') {
+        inserirEmbed(textoDoTweet, likesTweet, retweetsTweet, 'termo2')
+      }
+      if (Object.keys(tweet)[4] == 'termo3') {
+        inserirEmbed(textoDoTweet, likesTweet, retweetsTweet, 'termo3')
+      }
+      if (Object.keys(tweet)[4] == 'termo4') {
+        inserirEmbed(textoDoTweet, likesTweet, retweetsTweet, 'termo4')
+      }
     }
-    if (Object.keys(embed)[1] == 'termo2') {
-      inserirEmbed(Object.values(embed)[2], 'termo2')
-    }
-    if (Object.keys(embed)[1] == 'termo3') {
-      inserirEmbed(Object.values(embed)[2], 'termo3')
-    }
-    if (Object.keys(embed)[1] == 'termo4') {
-      inserirEmbed(Object.values(embed)[2], 'termo4')
-    }
+    
   })
 }
 // embedsTweets.forEach
 
 // inserirEmbed(tweetEmbed)
 
-function inserirEmbed(tweetEmbed, termoId) {
+function inserirEmbed(textoDoTweet, likesTweet, retweetsTweet, termoId) {
 
   let tweetElement = document.getElementById(termoId);
   let creatElement = document.createElement('div');
 
-  creatElement.innerHTML = tweetEmbed
+  creatElement.innerHTML = textoDoTweet + `<div class="dados-tweet"><div class="likes"><img src="./imagens/like.svg" alt="">${likesTweet}</div><div class="retweets"><img src="./imagens/retweet.svg" alt="">${retweetsTweet}</div></div>`
+
+  creatElement.setAttribute("class", "tweet-texto")
   
   tweetElement.appendChild(creatElement)
 
   // Função da API JavaScript do Twitter para carregar o embed
-  twttr.widgets.load(tweetElement)
+  // twttr.widgets.load(tweetElement) // desativado temporariamente
 
 }
 
@@ -625,6 +646,58 @@ for (let materia in listaMaterias) {
   carregarMaterias(materia)
 }
 
+
+// REQUISÇÃO MATÉRIAS GRALHA CONFERE
+
+function carregarMateriasGralha(numeroContainerNews) {
+  fetch('https://gralhaconfere.tre-pr.jus.br/?rest_route=/wp/v2/posts')
+    .then(response => response.json() )
+    .then(data => {
+
+      console.log(data)
+      let tituloMateria = data[numeroContainerNews].title.rendered;
+
+      let urlMateria = data[numeroContainerNews].link; 
+
+      let apiFotosMateria = data[numeroContainerNews]._links['wp:featuredmedia'][0]['href'];
+     
+      console.log(tituloMateria)
+      console.log(urlMateria)
+      console.log(apiFotosMateria)
+      
+      fetch(apiFotosMateria)
+        .then(response => response.json() )
+        .then(data => {
+
+          let urlFotoMateria = data.source_url;
+          
+          document.querySelectorAll('.lista-noticias.gralha img')[numeroContainerNews].src = urlFotoMateria;
+          // console.log()
+          document.querySelectorAll('.lista-noticias.gralha a')[numeroContainerNews].href = urlMateria;
+          document.querySelectorAll('.lista-noticias.gralha h2')[numeroContainerNews].innerHTML = tituloMateria;
+
+        })
+        .catch((error) => {
+          console.log(error)
+      });
+
+      
+          
+        
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+}
+
+let listaMateriasGralha = [0,1,2,3];
+// console.log(listaMaterias);
+
+for (let materia in listaMateriasGralha) {
+  carregarMateriasGralha(materia)
+}
+
+// carregarMateriasGralha(1)
 
 // function pegaUrlImgPost(apiFotosMateria, numeroContainerNews) {
 //   fetch(apiFotosMateria)
