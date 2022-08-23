@@ -512,7 +512,7 @@ function geraGrafico(listaDados) {
   var grafico = new Chart('chart', {
     type: 'radar',
     data: {
-      labels: ['Fake','Corrupto', 'Roubo', 'Fraude'],
+      labels: ['STF','Corrupto', 'Urna', 'Fraude'],
       datasets: [{
         label: 'Citações do termo',
         backgroundColor: color(blue).alpha(0.2).rgbString(),
